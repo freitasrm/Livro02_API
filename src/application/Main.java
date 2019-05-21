@@ -1,5 +1,11 @@
 package application;
 	
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
 import br.com.casadocodigo.livraria.produtos.Produto;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -67,6 +73,68 @@ public class Main extends Application {
 																				// exibir no programa
 		primaryStage.show();
 		
+		/*
+		try {
+			InputStream is = new FileInputStream("teste.txt");
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader reader = new BufferedReader(isr);
+			String linha = reader.readLine();
+			while(linha != null) {
+				System.out.println(linha);
+				linha = reader.readLine();
+			}
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Erro ao tentar ler o arquivo "+ e);
+		}
+
+		try {
+			InputStream is = System.in;
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader reader = new BufferedReader(isr);
+			String linha = reader.readLine();
+			while(linha != null) {
+				System.out.println(linha);
+				linha = reader.readLine();
+			}
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Erro ao tentar ler o arquivo "+ e);
+		}
+		
+		try {
+			Scanner sc = new Scanner(new File("teste.txt"));
+			while(sc.hasNextLine()) {
+				System.out.println(sc.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Erro ao tentar ler o arquivo " + e);
+		}
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Digite seu nome: ");
+		String nomeDigitado = sc.nextLine();
+		System.out.println("Digite sua idade: ");
+		int idadeDigitada = sc.nextInt();
+		System.out.println("Nome: "+nomeDigitado);
+		System.out.println("IdadE: "+ idadeDigitada);
+		 */
+		
+		try{
+			OutputStream os = new FileOutputStream("saida.txt");
+			OutputStreamWriter osw = new OutputStreamWriter(os);
+			BufferedWriter bw = new BufferedWriter(osw);
+			
+			bw.write("Testando a escrita em arquivo");
+			bw.newLine();
+			bw.write("Conteúdo na próxima linha");
+			bw.write("Testando a escrita em arquivo\n");
+			bw.write("Conteúdo na próxima linha");
+			
+			bw.close();
+		} catch (IOException e) {
+			System.out.println("Arquivo não encontrado");
+		}
 	}
 	
 	public static void main(String[] args) {
