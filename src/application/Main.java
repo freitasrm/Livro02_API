@@ -1,17 +1,14 @@
 package application;
 	
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-
 import br.com.casadocodigo.livraria.produtos.Produto;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -57,6 +54,17 @@ public class Main extends Application {
 		
 		final VBox vbox = new VBox(tableView);
 		vbox.setPadding(new Insets(70, 0, 0, 10));
+		
+		Button button = new Button("Exportar CSV");
+		button.setLayoutX(575);
+		button.setLayoutY(25);
+		button.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("Click!");
+			}
+			
+		});
 
 																				// incluir um texto
 		Label label = new Label("Listagem de Livros");
@@ -65,7 +73,7 @@ public class Main extends Application {
 		label.setPadding(new Insets(20, 0, 10, 10));
 		
 																				//vincular texto a tela atraves do grupo
-		group.getChildren().addAll(label, vbox);
+		group.getChildren().addAll(label, vbox, button);
 																				// titulo da tela
 		primaryStage.setTitle("Sistema da livraria com Java FX");
 																				// informando a tela do programa
@@ -73,68 +81,6 @@ public class Main extends Application {
 																				// exibir no programa
 		primaryStage.show();
 		
-		/*
-		try {
-			InputStream is = new FileInputStream("teste.txt");
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader reader = new BufferedReader(isr);
-			String linha = reader.readLine();
-			while(linha != null) {
-				System.out.println(linha);
-				linha = reader.readLine();
-			}
-			reader.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao tentar ler o arquivo "+ e);
-		}
-
-		try {
-			InputStream is = System.in;
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader reader = new BufferedReader(isr);
-			String linha = reader.readLine();
-			while(linha != null) {
-				System.out.println(linha);
-				linha = reader.readLine();
-			}
-			reader.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao tentar ler o arquivo "+ e);
-		}
-		
-		try {
-			Scanner sc = new Scanner(new File("teste.txt"));
-			while(sc.hasNextLine()) {
-				System.out.println(sc.nextLine());
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("Erro ao tentar ler o arquivo " + e);
-		}
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Digite seu nome: ");
-		String nomeDigitado = sc.nextLine();
-		System.out.println("Digite sua idade: ");
-		int idadeDigitada = sc.nextInt();
-		System.out.println("Nome: "+nomeDigitado);
-		System.out.println("IdadE: "+ idadeDigitada);
-		 */
-		
-		try{
-			OutputStream os = new FileOutputStream("saida.txt");
-			OutputStreamWriter osw = new OutputStreamWriter(os);
-			BufferedWriter bw = new BufferedWriter(osw);
-			
-			bw.write("Testando a escrita em arquivo");
-			bw.newLine();
-			bw.write("Conteúdo na próxima linha");
-			bw.write("Testando a escrita em arquivo\n");
-			bw.write("Conteúdo na próxima linha");
-			
-			bw.close();
-		} catch (IOException e) {
-			System.out.println("Arquivo não encontrado");
-		}
 	}
 	
 	public static void main(String[] args) {
