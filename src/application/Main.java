@@ -1,10 +1,10 @@
 package application;
 	
+import java.io.IOException;
+
 import br.com.casadocodigo.livraria.produtos.Produto;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import repositorio.RepositorioDeProdutos;
+import teste.Exportador;
 
 @SuppressWarnings({ "unchecked", "rawtypes"})
 public class Main extends Application {
@@ -53,25 +54,18 @@ public class Main extends Application {
 		tableView.getColumns().addAll(nomeColumn, descColumn, valorColumn, isbnColumn);
 		
 		final VBox vbox = new VBox(tableView);
-		vbox.setPadding(new Insets(70, 0, 0, 10));
-		
-		Button button = new Button("Exportar CSV");
-		button.setLayoutX(575);
-		button.setLayoutY(25);
-		button.setOnAction(new EventHandler<ActionEvent>(){
-			@Override
-			public void handle(ActionEvent event) {
-				System.out.println("Click!");
-			}
-			
-		});
-
+		vbox.setPadding(new Insets(70, 0, 0, 10));		
 																				// incluir um texto
 		Label label = new Label("Listagem de Livros");
 																				// alterar fonte e padding
 		label.setFont(Font.font("Lucida Grande", FontPosture.REGULAR, 30));
 		label.setPadding(new Insets(20, 0, 10, 10));
-		
+																				// incluir botão
+		Button button = new Button("Exportar CSV");
+		button.setLayoutX(575);
+		button.setLayoutY(25);
+																				// ação de exportar produtos em CSV
+		button.setOnAction(event -> exportarEmCSV(produtos));
 																				//vincular texto a tela atraves do grupo
 		group.getChildren().addAll(label, vbox, button);
 																				// titulo da tela
@@ -83,6 +77,14 @@ public class Main extends Application {
 		
 	}
 	
+	private void exportarEmCSV(ObservableList<Produto> produtos) {
+		try {
+			new Exportador().paraCSV(produtos);
+		} catch (IOException e) {
+			System.out.println("Erro ao exportar: " + e);
+		}
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
