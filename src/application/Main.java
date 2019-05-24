@@ -3,6 +3,8 @@ package application;
 import java.io.IOException;
 
 import br.com.casadocodigo.livraria.produtos.Produto;
+import dao.ProdutoDAO;
+import io.Exportador;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -17,8 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import repositorio.RepositorioDeProdutos;
-import teste.Exportador;
 
 @SuppressWarnings({ "unchecked", "rawtypes"})
 public class Main extends Application {
@@ -31,7 +31,7 @@ public class Main extends Application {
 																				// criar a tela
 		Scene scene = new Scene(group,690,510);
 		
-		ObservableList<Produto> produtos = new RepositorioDeProdutos().lista();
+		ObservableList<Produto> produtos = new ProdutoDAO().lista();
 		
 		TableView tableView = new TableView<>(produtos);
 		
