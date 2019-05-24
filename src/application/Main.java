@@ -65,7 +65,14 @@ public class Main extends Application {
 		button.setLayoutX(575);
 		button.setLayoutY(25);
 																				// ação de exportar produtos em CSV
-		button.setOnAction(event -> exportarEmCSV(produtos));
+		button.setOnAction(event -> { 
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e) {
+				System.out.println("Ops ocorreu um erro: " + e);
+			}
+			exportarEmCSV(produtos);
+		});
 																				//vincular texto a tela atraves do grupo
 		group.getChildren().addAll(label, vbox, button);
 																				// titulo da tela
