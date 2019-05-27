@@ -66,12 +66,10 @@ public class Main extends Application {
 		button.setLayoutY(25);
 																				// ação de exportar produtos em CSV
 		button.setOnAction(event -> { 
-			try {
-				Thread.sleep(20000);
-			} catch (InterruptedException e) {
-				System.out.println("Ops ocorreu um erro: " + e);
-			}
-			exportarEmCSV(produtos);
+			new Thread(() -> {
+				dormePorVinteSegundos();
+				exportarEmCSV(produtos);	
+			}).start();
 		});
 																				//vincular texto a tela atraves do grupo
 		group.getChildren().addAll(label, vbox, button);
@@ -89,6 +87,14 @@ public class Main extends Application {
 			new Exportador().paraCSV(produtos);
 		} catch (IOException e) {
 			System.out.println("Erro ao exportar: " + e);
+		}
+	}
+	
+	private void dormePorVinteSegundos() {
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			System.out.println("Ops, ocorreu um erro: " + e);
 		}
 	}
 
