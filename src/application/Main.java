@@ -59,9 +59,7 @@ public class Main extends Application {
 																				// incluir um texto
 		Label label = new Label("Listagem de Livros");
 																				// alterar fonte e padding
-		label.setFont(Font.font("Lucida Grande", FontPosture.REGULAR, 30));
-		
-		label.setPadding(new Insets(20, 0, 10, 10));
+		label.setStyle("-fx-font-size: 30px; -fx-padding: 20 0 10 10;");
 
 		Label progresso = new Label();
 		progresso.setLayoutX(485);
