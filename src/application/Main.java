@@ -8,7 +8,6 @@ import io.Exportador;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,8 +16,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
 @SuppressWarnings({ "unchecked", "rawtypes"})
@@ -31,6 +28,8 @@ public class Main extends Application {
 		Group group = new Group();
 																				// criar a tela
 		Scene scene = new Scene(group,690,510);
+																				// importa css
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		ObservableList<Produto> produtos = new ProdutoDAO().lista();
 		
@@ -55,19 +54,15 @@ public class Main extends Application {
 		tableView.getColumns().addAll(nomeColumn, descColumn, valorColumn, isbnColumn);
 		
 		final VBox vbox = new VBox(tableView);
-		vbox.setPadding(new Insets(70, 0, 0, 10));		
+		vbox.setId("vbox");		
 																				// incluir um texto
 		Label label = new Label("Listagem de Livros");
+		label.setId("label-listagem");
 																				// alterar fonte e padding
-		label.setStyle("-fx-font-size: 30px; -fx-padding: 20 0 10 10;");
-
 		Label progresso = new Label();
-		progresso.setLayoutX(485);
-		progresso.setLayoutY(30);
-																				// incluir botão
+		progresso.setId("label-progresso");
+																						// incluir botão
 		Button button = new Button("Exportar CSV");
-		button.setLayoutX(575);
-		button.setLayoutY(25);
 																				// ação de exportar produtos em CSV
 		button.setOnAction(event -> { 
 																				// sincronismo, substituição runnable por task
@@ -86,8 +81,16 @@ public class Main extends Application {
 			
 			new Thread(task).start();
 		});
-																				//vincular texto a tela atraves do grupo
-		group.getChildren().addAll(label, vbox, button, progresso);
+
+		double valorTotal = produtos.stream().mapToDouble(Produto::getValor).sum();
+		
+		Label labelFooter = new Label(
+				String.format("Você tem R$%.2f em estoque, " +
+						"com um total de %d produtos.", valorTotal, produtos.size()));
+		
+		labelFooter.setId("label-footer");
+																	//vincular texto a tela atraves do grupo
+		group.getChildren().addAll(label, vbox, button, progresso, labelFooter);
 																				// titulo da tela
 		primaryStage.setTitle("Sistema da livraria com Java FX");
 																				// informando a tela do programa
