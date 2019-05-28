@@ -7,6 +7,7 @@ import dao.ProdutoDAO;
 import io.Exportador;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -59,20 +60,36 @@ public class Main extends Application {
 		Label label = new Label("Listagem de Livros");
 																				// alterar fonte e padding
 		label.setFont(Font.font("Lucida Grande", FontPosture.REGULAR, 30));
+		
 		label.setPadding(new Insets(20, 0, 10, 10));
+
+		Label progresso = new Label();
+		progresso.setLayoutX(485);
+		progresso.setLayoutY(30);
 																				// incluir botão
 		Button button = new Button("Exportar CSV");
 		button.setLayoutX(575);
 		button.setLayoutY(25);
 																				// ação de exportar produtos em CSV
 		button.setOnAction(event -> { 
-			new Thread(() -> {
+																				// sincronismo, substituição runnable por task
+			Task<Void> task = new Task<Void>() {
+				@Override
+				protected Void call() throws Exception{
 				dormePorVinteSegundos();
-				exportarEmCSV(produtos);	
-			}).start();
+				exportarEmCSV(produtos);
+				return null;
+				}
+			};
+																				// usando a task para exibir mensagem de feedback
+			task.setOnRunning(e -> progresso.setText("exportando..."));
+																				// usando a task para exibir mensagem de feedback
+			task.setOnSucceeded(e -> progresso.setText("concluído!"));
+			
+			new Thread(task).start();
 		});
 																				//vincular texto a tela atraves do grupo
-		group.getChildren().addAll(label, vbox, button);
+		group.getChildren().addAll(label, vbox, button, progresso);
 																				// titulo da tela
 		primaryStage.setTitle("Sistema da livraria com Java FX");
 																				// informando a tela do programa
