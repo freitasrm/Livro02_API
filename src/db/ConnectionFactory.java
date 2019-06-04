@@ -11,7 +11,7 @@ public class ConnectionFactory {
 		String url = "jdbc:mysql://localhost/livraria?useTimezone=true&serverTimezone=UTC";
 		
 		try {
-			return DriverManager.getConnection(url, "root", "password");
+			return DriverManager.getConnection(url, "root", "1234");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
