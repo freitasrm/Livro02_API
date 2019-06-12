@@ -12,8 +12,20 @@ import db.ConnectionFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Cuida do acesso aos dados da classe {@link Produto}.
+ * 
+ * @author RMartins <freitas.rodrigom@gmail.com>
+ * @since 1.0
+ */
 public class ProdutoDAO {
 
+	/**
+	 * Lista todos os produtos do banco de dados
+	 * 
+	 * @return {@link Observablelist} com todos os produtos
+	 * @throws RuntimeException em caso de erros
+	 */
 	public ObservableList<Produto> lista() {
 
 		ObservableList<Produto> produtos = FXCollections.observableArrayList();
@@ -41,6 +53,10 @@ public class ProdutoDAO {
 		return produtos;
 	}
 
+	/**
+	 * @param produto que deverá ser adicionado no banco.
+	 * @throws RuntimeException em caso de erros
+	 */
 	public void adiciona(Produto produto) {
 		PreparedStatement ps;
 		try {
