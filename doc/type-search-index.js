@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"db","l":"ConnectionFactory"},{"p":"io","l":"Exportador"},{"p":"threads","l":"ExportadorDeCSV"},{"p":"application","l":"Main"},{"p":"dao","l":"ProdutoDAO"},{"p":"threads","l":"TestandoThread"},{"p":"teste","l":"TesteEntrada"},{"p":"teste","l":"TesteSaida"}]
